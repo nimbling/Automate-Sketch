@@ -65,10 +65,17 @@ var onRun = function(context) {
                     group.moveToLayer_beforeLayer(parentGroup, oldLayer);
                     
                     // Position
-                    if (preferences.get("pasteAndReplaceLayerPosition") == "1") {
+                    if (preferences.get("pasteAndReplaceLayerPosition") == "2") {
                         group.frame().setMidX(Math.round(oldLayer.frame().midX()));
                         group.frame().setMidY(Math.round(oldLayer.frame().midY()));
-                    } else {
+                    } else if (preferences.get("pasteAndReplaceLayerPosition") == "1") {
+                        group.frame().setX(Math.round(oldLayer.frame().x()));
+                        group.frame().setY(Math.round(oldLayer.frame().y()));
+                        oldWidth = oldLayer.frame().width();
+                        oldHeight = oldLayer.frame().height();
+                        group.frame().setWidth(oldWidth);
+                        group.frame().setHeight(oldHeight);
+                    } else { // == 0, DEFAULT
                         group.frame().setX(Math.round(oldLayer.frame().x()));
                         group.frame().setY(Math.round(oldLayer.frame().y()));
                     }
