@@ -10,11 +10,12 @@ var onRun = function(context) {
     // Dialog
     var dialog = new Dialog(
         "Paste and Replace Setting",
-        "The position of new layer relative the old one."
+        "The position, and/or size of the pasted layer relative the old one."
     );
 
     var layerPosition = ui.popupButton([
         "Top-left on the old one (default).",
+        "Top-left on the old one, AND match size",
         "Center on the old one."
     ]);
     dialog.addView(layerPosition);
