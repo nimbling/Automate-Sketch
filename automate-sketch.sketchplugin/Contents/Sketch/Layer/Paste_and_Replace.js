@@ -65,14 +65,22 @@ var onRun = function(context) {
                     group.moveToLayer_beforeLayer(parentGroup, oldLayer);
                     
                     // Position
-                    if (preferences.get("pasteAndReplaceLayerPosition") == "1") {
+                    oldWidth = oldLayer.frame().width();
+                    oldHeight = oldLayer.frame().height();
+
+                    if (preferences.get("pasteAndReplaceLayerPosition") == "2") {
                         group.frame().setMidX(Math.round(oldLayer.frame().midX()));
                         group.frame().setMidY(Math.round(oldLayer.frame().midY()));
-                    } else {
+                    } else if (preferences.get("pasteAndReplaceLayerPosition") == "1") {
+                        group.frame().setX(Math.round(oldLayer.frame().x()));
+                        group.frame().setY(Math.round(oldLayer.frame().y()));
+                        group.frame().setWidth(oldWidth);
+                        group.frame().setHeight(oldHeight);
+                    } else { // == 0, DEFAULT
                         group.frame().setX(Math.round(oldLayer.frame().x()));
                         group.frame().setY(Math.round(oldLayer.frame().y()));
                     }
-
+    
                     // oldLayer is a mask
                     if (
                         oldLayer.hasClippingMask() &&
@@ -81,7 +89,7 @@ var onRun = function(context) {
                     ) {
                         group.layers().firstObject().setHasClippingMask(true);
                     }
-
+                    
                     group.ungroup();
 
                     // Replace symbol master
